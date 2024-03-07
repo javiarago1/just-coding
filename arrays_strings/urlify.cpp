@@ -1,6 +1,6 @@
-#include <string>
 #include <iostream>
 #include <queue>
+
 #define SPACE_CHARACTER 32
 #define SEPARATOR "%20"
 #define SEPARATOR_SIZE 3
