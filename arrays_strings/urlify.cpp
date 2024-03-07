@@ -36,9 +36,8 @@ void urlify(char *str, int string_size)
         if (not queue.empty())
         {
             if (str[i] != SPACE_CHARACTER) queue.push(str[i]);
-            char temp = queue.front();
+            str[i] = queue.front();
             queue.pop();
-            str[i] = temp;
         }
         i++;
     }
