@@ -12,11 +12,6 @@
  *
  */
 
-/*
- * 0001000100
- * 0001000000
- *
- */
 
 int convert_to_alphabet_pos(char c){
     if (c >=  'A' && c <= 'Z')
