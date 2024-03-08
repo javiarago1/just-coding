@@ -37,16 +37,20 @@ bool palindrome_permutation(char *str)
     int i = 0;
     while(*str)
     {
-        int temp = convert_to_alphabet_pos(*str);
-        if (temp != -1)
+        int pos = convert_to_alphabet_pos(*str);
+        if (pos != -1)
         {
-            int mask = 1 << temp;
+            // create mask of specific position in the bit map
+            int mask = 1 << pos;
+            // deactivate or activate bit in pos
             map_of_bits ^= mask;
+            // update counter of BITS on/off
             on += map_of_bits & mask ? 1 : -1;
             i++;
         }
         str++;
     }
+    // validates the 2 main cases: odd and even size and palindrome possibilities
     return ((i % 2 == 0) && on == 0) || (i % 2 != 0 && on == 1);
 }
 
