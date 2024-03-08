@@ -50,7 +50,7 @@ bool palindrome_permutation(char *str) {
 int main()
 {
 
-    char str[] = "aacxd>xaa";
+    char str[] = "xazzaabba";
     std::cout <<  palindrome_permutation(str);
     return 0;
 }
