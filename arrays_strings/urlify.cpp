@@ -13,13 +13,6 @@
  */
 
 
-size_t strlen(char *str)
-{
-    size_t i;
-    for (i = 0; (*str); i++, str++);
-    return i;
-}
-
 
 void urlify(char *str, int string_size)
 {
