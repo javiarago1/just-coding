@@ -36,7 +36,8 @@ bool palindrome_permutation(char *str) {
     while(*str)
     {
         int temp = convert_to_alphabet_pos(*str);
-        if (temp != -1) {
+        if (temp != -1)
+        {
             int mask = 1 << temp;
             map_of_bits ^= mask;
             on += map_of_bits & mask ? 1 : -1;
