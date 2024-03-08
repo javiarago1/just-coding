@@ -13,7 +13,8 @@
  */
 
 
-int convert_to_alphabet_pos(char c){
+int convert_to_alphabet_pos(char c)
+{
     if (c >=  'A' && c <= 'Z')
     {
         return c - 'A';
@@ -29,7 +30,8 @@ int convert_to_alphabet_pos(char c){
 }
 
 
-bool palindrome_permutation(char *str) {
+bool palindrome_permutation(char *str)
+{
     int map_of_bits = 0;
     int on = 0;
     int i = 0;
