@@ -16,9 +16,9 @@ bool is_unique(char *str)
         int mask = 1 << pos; // ex: 00000100
 
         // checks if the character has already been seen
-        if ((map_of_bits >> pos) & 1){
+        if ((map_of_bits >> pos) & 1)
             return false;
-        }
+        
         // overlap the maps of bits (TURN ON LED)
         map_of_bits |= mask;
         str++;
