@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdbool.h>
 
 
@@ -15,7 +16,7 @@ bool is_unique(char *str)
         int mask = 1 << alphabet_pos; // ex: 00000100
 
         // checks if the character has already been seen
-        if ((character_flags >> alphabet_pos) & 1)
+        if (character_flags & mask)
             return false;
         
         // overlap the maps of bits (TURN ON LED)
