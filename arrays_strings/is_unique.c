@@ -8,19 +8,19 @@
  */
 bool is_unique(char *str)
 {
-    int map_of_bits = 0;
+    int character_flags = 0;
 
     while(*str)
     {
-        int pos = *str - 97;
-        int mask = 1 << pos; // ex: 00000100
+        int alphabet_pos = *str - 97;
+        int mask = 1 << alphabet_pos; // ex: 00000100
 
         // checks if the character has already been seen
-        if ((map_of_bits >> pos) & 1){
+        if (character_flags & mask)
             return false;
-        }
+        
         // overlap the maps of bits (TURN ON LED)
-        map_of_bits |= mask;
+        character_flags |= mask;
         str++;
     }
     return true;
