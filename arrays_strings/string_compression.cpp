@@ -7,6 +7,8 @@
  * string has only uppercase and lowercase letters (c-z)
  */
 
+// TODO improve space management and amortized operations
+
 void set_char_and_number(char c, int counter, std::string &str)
 {
     str += c;
