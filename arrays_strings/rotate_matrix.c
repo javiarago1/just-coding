@@ -20,8 +20,10 @@ void rotate_matrix(int matrix[N_SIZE][N_SIZE])
 
 void print_matrix(int matrix[N_SIZE][N_SIZE])
 {
-    for (int i = 0; i < N_SIZE; i++) {
-        for (int j = 0; j < N_SIZE; j++) {
+    for (int i = 0; i < N_SIZE; i++)
+    {
+        for (int j = 0; j < N_SIZE; j++)
+        {
             printf("%d ", matrix[i][j]);
         }
         printf("\n");
