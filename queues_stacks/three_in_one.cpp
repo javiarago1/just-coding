@@ -4,20 +4,17 @@
 class Stack{
 private:
     int index;
-    int size;
     int start;
     int end;
     int *array;
+    int arraySize;
 
 public:
     Stack(){}
 
-    void setSize(int _size) {
-        Stack::size = _size;
-    }
 
     int getSize() const {
-        return size;
+        return end < start ? arraySize - start + end : end - start;
     }
 
     int getStart() const {
@@ -37,34 +34,41 @@ public:
         return end;
     }
 
-    void setArray(int *array) {
+    void setArray(int *array, int arraySize) {
         Stack::array = array;
+        Stack::arraySize = arraySize;
     }
+
 
     void moveElementsToTheRight(){
         int temp;
-        for(int i = start + 1; i < end; i++){
+        for(int idx = start; idx != end; moveIndex(idx)){
             temp = array[start];
-            array[start] = array[i];
-            array[i] = temp;
+            array[start] = array[idx];
+            array[idx] = temp;
         }
     }
 
 
-    void decrementSize()
+    void moveEndToTheRight()
     {
-        std::cout << "Resizing" << std::endl;
-        start += 1;
-
+        moveIndex(end);
     }
+
+    void moveStartToTheRight()
+    {
+        moveIndex(start);
+        moveIndex(index);
+    }
+
 
     bool isFull() {
         return index == end;
     }
 
-    void moveIndex()
+    void moveIndex(int &_index)
     {
-        index++;
+        _index = _index + 1 == arraySize ? 0 : _index + 1;
     }
 
     bool push(int value)
@@ -72,7 +76,7 @@ public:
         if (isFull())
             return false;
         array[index] = value;
-        moveIndex();
+        moveIndex(index);
         return true;
     }
 
@@ -116,10 +120,9 @@ public:
         stacks = new Stack[_numOfStacks];
         for(int i = 0; i < _numOfStacks; i++){
             int finalSize = rest-- > 0 ? pSize + 1 : pSize;
-            stacks[i].setSize(finalSize);
             stacks[i].setStart(!counter ? 0 : counter);
             stacks[i].setAnEnd(counter += finalSize);
-            stacks[i].setArray(array);
+            stacks[i].setArray(array, arraySize);
         }
 
         for(int i = 0; i < _numOfStacks; i++)
@@ -155,14 +158,21 @@ public:
                 }
 
             }
+            stacks[it].moveElementsToTheRight();
+            stacks[it].moveStartToTheRight();
+            it = it == 0 ? numOfStacks - 1 : it - 1;
             // resize everything
             if (hasFoundCandidate) {
                 while(it != numOfStack)
                 {
-                    stacks[it].resize();
+                    stacks[it].moveElementsToTheRight();
+                    stacks[it].moveStartToTheRight();
+                    stacks[it].moveEndToTheRight();
                     it = (it == 0 ? numOfStacks - 1 : it - 1);
                 }
             }
+            stacks[numOfStack].moveEndToTheRight();
+            stacks[numOfStack].push(value);
 
 
 
