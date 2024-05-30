@@ -42,9 +42,9 @@ public:
 
     void moveElementsToTheRight(){
         int temp;
-        for(int idx = start; idx != end; moveIndex(idx)){
-            temp = array[start];
-            array[start] = array[idx];
+        for(int idx = start; idx != index; moveIndexFordward(idx)){
+            temp = array[start + 1];
+            array[start + 1] = array[idx];
             array[idx] = temp;
         }
     }
@@ -52,13 +52,13 @@ public:
 
     void moveEndToTheRight()
     {
-        moveIndex(end);
+        moveIndexFordward(end);
     }
 
     void moveStartToTheRight()
     {
-        moveIndex(start);
-        moveIndex(index);
+        moveIndexFordward(start);
+        moveIndexFordward(index);
     }
 
 
@@ -66,9 +66,14 @@ public:
         return index == end;
     }
 
-    void moveIndex(int &_index)
+    void moveIndexFordward(int &_index)
     {
         _index = _index + 1 == arraySize ? 0 : _index + 1;
+    }
+
+    void moveIndexBackward(int &_index)
+    {
+        _index = _index - 1 < 0 ? arraySize - 1 : _index - 1;
     }
 
     bool push(int value)
@@ -76,21 +81,25 @@ public:
         if (isFull())
             return false;
         array[index] = value;
-        moveIndex(index);
+        moveIndexFordward(index);
         return true;
     }
 
     void pop(){
-
+        moveIndexBackward(index);
     }
 
+
+    int getIndex() const {
+        return index;
+    }
 
 
     void printValues()
     {
-        for (int i = start; i < end; i++)
+        for (int i = start; i !=  index; moveIndexFordward(i))
         {
-            std::cout << array[i] << (i == end - 1 ? "" : ", ");
+            std::cout << array[i] << (i == index - 1 ? "" : ", ");
         }
         std::cout << "\n";
     }
@@ -104,6 +113,7 @@ class StackHandler{
 private:
     Stack *stacks;
     int *array;
+
     int numOfStacks;
     int defaultStackSize;
 
@@ -138,6 +148,21 @@ public:
         }
     }
 
+    void printAll()
+    {
+        for(int i = 0; i < numOfStacks; i++)
+        {
+            std::cout << stacks[i].getSize() << " | " << stacks[i].getStart() << " | " << stacks[i].getAnEnd() << " | " << stacks[i].getIndex() << std::endl;
+        }
+    }
+
+    void popElementFromStack(int numOfStack)
+    {
+        if (numOfStack > numOfStacks - 1 || numOfStack < 0)
+            throw std::invalid_argument("Index not found!");
+        stacks[numOfStack].pop();
+    }
+
 
     void addElementToStack(int numOfStack, int value) {
         if (numOfStack > numOfStacks - 1 || numOfStack < 0)
@@ -170,13 +195,22 @@ public:
                     stacks[it].moveEndToTheRight();
                     it = (it == 0 ? numOfStacks - 1 : it - 1);
                 }
+                stacks[numOfStack].moveEndToTheRight();
+                stacks[numOfStack].push(value);
             }
-            stacks[numOfStack].moveEndToTheRight();
-            stacks[numOfStack].push(value);
+
 
 
 
         }
+    }
+
+    void printArray()
+    {
+        for (int i = 0; i < 9; i++){
+            std::cout << array[i];
+        }
+        std::cout << "\n";
     }
 
 };
@@ -189,8 +223,28 @@ int main()
     stackHandler.addElementToStack(0, 3);
     stackHandler.addElementToStack(0, 14);
     stackHandler.addElementToStack(0, 19);
-    stackHandler.addElementToStack(0, 20);
     stackHandler.addElementToStack(1, 16);
+    stackHandler.printAll();
     stackHandler.printStacks();
+    stackHandler.addElementToStack(0, 20);
+    stackHandler.printAll();
+    stackHandler.printStacks();
+    stackHandler.addElementToStack(0, 22);
+    stackHandler.printAll();
+    stackHandler.printStacks();
+    stackHandler.addElementToStack(0, 23);
+    stackHandler.printAll();
+    stackHandler.printStacks();
+    stackHandler.addElementToStack(1, 66);
+    stackHandler.printAll();
+    stackHandler.printStacks();
+    stackHandler.addElementToStack(2, 80);
+    stackHandler.printAll();
+    stackHandler.printStacks();
+    stackHandler.popElementFromStack(0);
+    stackHandler.printAll();
+    stackHandler.printStacks();
+
+
     return 0;
 }
